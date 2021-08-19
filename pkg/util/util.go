@@ -2,26 +2,9 @@ package util
 
 import (
 	"github.com/beego/beego/v2/core/logs"
-	"os"
 	"strconv"
 	"time"
 )
-
-func GetEnvStr(key string, value string) string {
-	aux := os.Getenv(key)
-	if aux != "" {
-		return aux
-	}
-	return value
-}
-
-func GetEnvBool(key string, value bool) bool {
-	aux := os.Getenv(key)
-	if aux != "" {
-		return aux == "true"
-	}
-	return value
-}
 
 func ConvStr2Float(str string) float64 {
 	if str == "" {

@@ -8,6 +8,7 @@ import (
 	"mysql_mate_go/pkg/config"
 	_ "mysql_mate_go/pkg/config"
 	"mysql_mate_go/pkg/metrics"
+	"mysql_mate_go/pkg/mysql"
 
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"net/http"
@@ -22,6 +23,12 @@ func main() {
 	if config.LogFile != "" {
 		strings := `{"filename":"` + config.LogFile + `", "level":6}`
 		logs.SetLogger(logs.AdapterFile, strings)
+	}
+	if !config.RemoteMode {
+		logs.Info("not remote mode, start redis server")
+		mysql.Start()
+	} else {
+		logs.Info("remote mode")
 	}
 	metrics.Init()
 	r := mux.NewRouter()

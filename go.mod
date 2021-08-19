@@ -6,5 +6,6 @@ require (
 	github.com/beego/beego/v2 v2.0.1
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/gorilla/mux v1.8.0
+	github.com/paashzj/gutil v0.0.2 // indirect
 	github.com/prometheus/client_golang v1.11.0
 )

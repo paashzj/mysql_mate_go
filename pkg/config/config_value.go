@@ -1,7 +1,7 @@
 package config
 
 import (
-	"mysql_mate_go/pkg/util"
+	"github.com/paashzj/gutil"
 )
 
 // mate config
@@ -21,12 +21,12 @@ var (
 )
 
 func init() {
-	Cluster = util.GetEnvStr("CLUSTER", "default")
-	LogFile = util.GetEnvStr("LOG_FILE", "")
-	ConsoleLog = util.GetEnvBool("CONSOLE_LOG", true)
-	ListenAddr = util.GetEnvStr("LISTEN_ADDR", "0.0.0.0")
-	RemoteMode = util.GetEnvBool("REMOTE_MODE", true)
-	Username = util.GetEnvStr("USERNAME", "hzj")
-	Password = util.GetEnvStr("PASSWORD", "Mysql@123")
-	Hostname = util.GetEnvStr("HOSTNAME", "127.0.0.1:3306")
+	Cluster = gutil.GetEnvStr("CLUSTER", "default")
+	LogFile = gutil.GetEnvStr("LOG_FILE", "")
+	ConsoleLog = gutil.GetEnvBool("CONSOLE_LOG", true)
+	ListenAddr = gutil.GetEnvStr("LISTEN_ADDR", "0.0.0.0")
+	RemoteMode = gutil.GetEnvBool("REMOTE_MODE", true)
+	Username = gutil.GetEnvStr("USERNAME", "hzj")
+	Password = gutil.GetEnvStr("PASSWORD", "Mysql@123")
+	Hostname = gutil.GetEnvStr("HOSTNAME", "127.0.0.1:3306")
 }
