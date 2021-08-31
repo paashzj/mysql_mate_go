@@ -1,7 +1,12 @@
 package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"mysql_mate_go/pkg/db"
+	"net/http"
+)
 
-func GlobalStatusHandler(context *gin.Context) {
-
+func GlobalStatusHandler(c *gin.Context) {
+	status := db.GetGlobalStatus()
+	c.JSON(http.StatusOK, status)
 }
