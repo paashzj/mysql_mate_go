@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	"github.com/beego/beego/v2/core/logs"
+	"mysql_mate_go/pkg/module"
 )
 
 func GetPerformance() map[string]string {
@@ -30,8 +31,8 @@ func SelectOne() bool {
 }
 
 // GetSlaveStatus 获取 slave status的状态
-func GetSlaveStatus() SlaveStatus {
-	var slaveStatus SlaveStatus
+func GetSlaveStatus() module.SlaveStatus {
+	var slaveStatus module.SlaveStatus
 	db, err := sql.Open("mysql", dsn(""))
 	if err != nil {
 		logs.Error("Error %s when opening DB\n", err)
@@ -46,7 +47,7 @@ func GetSlaveStatus() SlaveStatus {
 	}
 	defer results.Close()
 	for results.Next() {
-		var slaveStatus SlaveStatus
+		var slaveStatus module.SlaveStatus
 		// for each row, scan the result into our statusDto composite object
 		err = results.Scan(&slaveStatus.SlaveIoState, &slaveStatus.MasterHost, &slaveStatus.MasterUser,
 			&slaveStatus.MasterPort, &slaveStatus.ConnectRetry, &slaveStatus.MasterLogFile, &slaveStatus.ReadMasterLogPos,
@@ -61,45 +62,45 @@ func GetSlaveStatus() SlaveStatus {
 			&slaveStatus.LastErrno,
 			&slaveStatus.LastError,
 			&slaveStatus.SkipCounter,
-			&slaveStatus.Exec_Master_Log_Pos,
-			&slaveStatus.Relay_Log_Space,
-			&slaveStatus.Until_Condition,
-			&slaveStatus.Until_Log_File,
-			&slaveStatus.Until_Log_Pos,
-			&slaveStatus.Master_SSL_Allowed,
-			&slaveStatus.Master_SSL_CA_File,
-			&slaveStatus.Master_SSL_CA_Path,
-			&slaveStatus.Master_SSL_Cert,
-			&slaveStatus.Master_SSL_Cipher,
-			&slaveStatus.Master_SSL_Key,
-			&slaveStatus.Seconds_Behind_Master,
-			&slaveStatus.Master_SSL_Verify_Server_Cert,
-			&slaveStatus.Last_IO_Errno,
-			&slaveStatus.Last_IO_Error,
-			&slaveStatus.Last_SQL_Errno,
-			&slaveStatus.Last_SQL_Error,
-			&slaveStatus.Replicate_Ignore_Server_Ids,
-			&slaveStatus.Master_Server_Id,
-			&slaveStatus.Master_UUID,
-			&slaveStatus.Master_Info_File,
-			&slaveStatus.SQL_Delay,
+			&slaveStatus.ExecMasterLogPos,
+			&slaveStatus.RelayLogSpace,
+			&slaveStatus.UntilCondition,
+			&slaveStatus.UntilLogFile,
+			&slaveStatus.UntilLogPos,
+			&slaveStatus.MasterSslAllowed,
+			&slaveStatus.MasterSslCaFile,
+			&slaveStatus.MasterSslCaPath,
+			&slaveStatus.MasterSslCert,
+			&slaveStatus.MasterSslCipher,
+			&slaveStatus.MasterSslKey,
+			&slaveStatus.SecondsBehindMaster,
+			&slaveStatus.MasterSslVerifyServerCert,
+			&slaveStatus.LastIoErrno,
+			&slaveStatus.LastIoError,
+			&slaveStatus.LastSqlErrno,
+			&slaveStatus.LastSqlError,
+			&slaveStatus.ReplicateIgnoreServerIds,
+			&slaveStatus.MasterServerId,
+			&slaveStatus.MasterUuid,
+			&slaveStatus.MasterInfoFile,
+			&slaveStatus.SqlDelay,
 			&slaveStatus.SqlRemainingDelay,
-			&slaveStatus.Slave_SQL_Running_State,
-			&slaveStatus.Master_Retry_Count,
-			&slaveStatus.Master_Bind,
-			&slaveStatus.Last_IO_Error_Timestamp,
-			&slaveStatus.Last_SQL_Error_Timestamp,
-			&slaveStatus.Master_SSL_Crl,
-			&slaveStatus.Master_SSL_Crlpath,
-			&slaveStatus.Retrieved_Gtid_Set,
-			&slaveStatus.Executed_Gtid_Set,
-			&slaveStatus.Auto_Position,
-			&slaveStatus.Replicate_Rewrite_DB,
-			&slaveStatus.Channel_Name,
-			&slaveStatus.Master_TLS_Version,
-			&slaveStatus.Master_public_key_path,
-			&slaveStatus.Get_master_public_key,
-			&slaveStatus.Network_Namespace)
+			&slaveStatus.SlaveSqlRunningState,
+			&slaveStatus.MasterRetryCount,
+			&slaveStatus.MasterBind,
+			&slaveStatus.LastIoErrorTimestamp,
+			&slaveStatus.LastSqlErrorTimestamp,
+			&slaveStatus.MasterSslCrl,
+			&slaveStatus.MasterSslCrlpath,
+			&slaveStatus.RetrievedGtidSet,
+			&slaveStatus.ExecutedGtidSet,
+			&slaveStatus.AutoPosition,
+			&slaveStatus.ReplicateRewriteDb,
+			&slaveStatus.ChannelName,
+			&slaveStatus.MasterTlsVersion,
+			&slaveStatus.MasterPublicKeyPath,
+			&slaveStatus.GetMasterPublicKey,
+			&slaveStatus.NetworkNamespace)
 		if err != nil {
 			logs.Error("Error %s when scanning result ", err)
 			return slaveStatus
@@ -124,7 +125,7 @@ func getStatus(sqlStr string) map[string]string {
 	}
 	defer results.Close()
 	for results.Next() {
-		var statusDto StatusTable
+		var statusDto module.StatusTable
 		// for each row, scan the result into our statusDto composite object
 		err = results.Scan(&statusDto.Key, &statusDto.Value)
 		if err != nil {

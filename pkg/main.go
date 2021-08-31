@@ -3,15 +3,15 @@ package main
 import (
 	"flag"
 	"github.com/beego/beego/v2/core/logs"
+	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/gorilla/mux"
+	"mysql_mate_go/pkg/api"
 	"mysql_mate_go/pkg/config"
 	_ "mysql_mate_go/pkg/config"
 	"mysql_mate_go/pkg/metrics"
 	"mysql_mate_go/pkg/mysql"
 
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"net/http"
 )
 
 func main() {
@@ -31,13 +31,21 @@ func main() {
 		logs.Info("remote mode")
 	}
 	metrics.Init()
-	r := mux.NewRouter()
-	r.Handle("/metrics", promhttp.Handler())
-	http.Handle("/", r)
-	err := http.ListenAndServe(config.ListenAddr+":8080", nil)
+	router := gin.Default()
+	router.GET("/metrics", prometheusHandler())
+	router.GET("/v1/mysql/global-status", api.GlobalStatusHandler)
+	logs.Info("mysql adapter started")
+	err := router.Run(":31009")
 	if err != nil {
 		logs.Error("open http server failed")
 		return
 	}
-	logs.Info("mysql adapter started")
+}
+
+func prometheusHandler() gin.HandlerFunc {
+	h := promhttp.Handler()
+
+	return func(c *gin.Context) {
+		h.ServeHTTP(c.Writer, c.Request)
+	}
 }

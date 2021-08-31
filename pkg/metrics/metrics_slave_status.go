@@ -17,7 +17,7 @@ const (
 // example: mysql_global_status_aborted_clients
 func slaveStatusMetrics() {
 	status := db.GetSlaveStatus()
-	slaveStatusSecondsBehindMaster.Set(util.ConvStr2Float(status.Seconds_Behind_Master))
+	slaveStatusSecondsBehindMaster.Set(util.ConvStr2Float(status.SecondsBehindMaster))
 	slaveStatusSlaveSqlRunningValue.Set(promConvMysqlStr2Bool(status.SlaveSqlRunning))
 	slaveStatusSlaveIoRunningValue.Set(promConvMysqlStr2Bool(status.SlaveIoRunning))
 }
