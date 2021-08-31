@@ -13,10 +13,8 @@ const (
 	slaveStatus = "slave_status"
 )
 
-/**
-参考官方的mysql-exporter指标命名
-example: mysql_global_status_aborted_clients
-*/
+// slaveStatusMetrics 参考官方的mysql-exporter指标命名
+// example: mysql_global_status_aborted_clients
 func slaveStatusMetrics() {
 	status := db.GetSlaveStatus()
 	slaveStatusSecondsBehindMaster.Set(util.ConvStr2Float(status.Seconds_Behind_Master))

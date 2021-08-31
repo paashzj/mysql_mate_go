@@ -13,10 +13,8 @@ const (
 	performance = "performance"
 )
 
-/**
-参考官方的mysql-exporter指标命名
-example: mysql_global_status_aborted_clients
-*/
+// innodbStatusMetrics 参考官方的mysql-exporter指标命名
+// example: mysql_global_status_aborted_clients
 func innodbStatusMetrics() {
 	status := db.GetPerformance()
 	innodbBufferPoolPagesFree.Set(util.ConvStr2Float(status["Innodb_buffer_pool_pages_free"]))

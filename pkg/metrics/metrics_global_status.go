@@ -13,10 +13,8 @@ const (
 	globalStatus = "global_status"
 )
 
-/**
-参考官方的mysql-exporter指标命名
-example: mysql_global_status_aborted_clients
-*/
+// globalStatusMetrics 参考官方的mysql-exporter指标命名
+// example: mysql_global_status_aborted_clients
 func globalStatusMetrics() {
 	status := db.GetGlobalStatus()
 	statusAbortedClients.Set(util.ConvStr2Float(status["Aborted_clients"]))

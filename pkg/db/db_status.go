@@ -9,9 +9,7 @@ func GetPerformance() map[string]string {
 	return getStatus("SELECT VARIABLE_NAME,VARIABLE_VALUE FROM performance_schema.global_status WHERE VARIABLE_NAME in (\"Innodb_buffer_pool_pages_total\", \"Innodb_buffer_pool_pages_free\")")
 }
 
-/**
-获取 mysql status的状态
-*/
+// GetGlobalStatus 获取 mysql status的状态
 func GetGlobalStatus() map[string]string {
 	return getStatus("SHOW GLOBAL STATUS")
 }
@@ -31,9 +29,7 @@ func SelectOne() bool {
 	return true
 }
 
-/**
-获取 slave status的状态
-*/
+// GetSlaveStatus 获取 slave status的状态
 func GetSlaveStatus() SlaveStatus {
 	var slaveStatus SlaveStatus
 	db, err := sql.Open("mysql", dsn(""))
