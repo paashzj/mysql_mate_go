@@ -10,3 +10,8 @@ func GlobalStatusHandler(c *gin.Context) {
 	status := db.GetGlobalStatus()
 	c.JSON(http.StatusOK, status)
 }
+
+func SlaveStatusHandler(c *gin.Context) {
+	status := db.GetSlaveStatus()
+	c.JSON(http.StatusOK, status)
+}

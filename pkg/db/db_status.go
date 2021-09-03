@@ -22,7 +22,8 @@ func SelectOne() bool {
 		return false
 	}
 	defer db.Close()
-	_, err = db.Query("SELECT 1")
+	result, err := db.Query("SELECT 1")
+	defer result.Close()
 	if err != nil {
 		logs.Error("Error select one when opening DB", err)
 		return false

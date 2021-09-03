@@ -34,6 +34,7 @@ func main() {
 	router := gin.Default()
 	router.GET("/metrics", prometheusHandler())
 	router.GET("/v1/mysql/global-status", api.GlobalStatusHandler)
+	router.GET("/v1/mysql/slave-status", api.SlaveStatusHandler)
 	logs.Info("mysql adapter started")
 	err := router.Run(":31009")
 	if err != nil {
