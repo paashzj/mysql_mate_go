@@ -8,8 +8,9 @@ FROM ttbb/mysql:nake
 
 LABEL maintainer="shoothzj@gmail.com"
 
-COPY docker-build /opt/sh/mysql/mate
+COPY --chown=sh:sh docker-build /opt/sh/mysql/mate
 
-COPY --from=build /opt/sh/compile/pkg/mysql_mate /opt/sh/mysql/mate/mysql_mate
+COPY --from=build --chown=sh:sh /opt/sh/compile/pkg/mysql_mate /opt/sh/mysql/mate/mysql_mate
 
+USER sh
 CMD ["/usr/local/bin/dumb-init", "bash", "-vx", "/opt/sh/mysql/mate/scripts/start.sh"]
