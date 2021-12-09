@@ -13,4 +13,4 @@ COPY --chown=sh:sh docker-build /opt/sh/mysql/mate
 COPY --from=build --chown=sh:sh /opt/sh/compile/pkg/mysql_mate /opt/sh/mysql/mate/mysql_mate
 
 USER sh
-CMD ["/usr/local/bin/dumb-init", "bash", "-vx", "/opt/sh/mysql/mate/scripts/start.sh"]
+CMD ["/usr/bin/dumb-init", "bash", "-vx", "/opt/sh/mysql/mate/scripts/start.sh"]
