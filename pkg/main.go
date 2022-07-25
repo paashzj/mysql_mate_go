@@ -25,7 +25,7 @@ func main() {
 		logs.SetLogger(logs.AdapterFile, strings)
 	}
 	if !config.RemoteMode {
-		logs.Info("not remote mode, start redis server")
+		logs.Info("not remote mode, start mysql server")
 		mysql.Start()
 	} else {
 		logs.Info("remote mode")
